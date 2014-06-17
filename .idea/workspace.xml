@@ -26,6 +26,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="BookAction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BookStore/Action/BookActions/BookAction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="588" max-vertical-offset="1900">
+              <caret line="102" column="23" selection-start-line="102" selection-start-column="23" selection-end-line="102" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BookDaoImpl.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/BookStore/Dao/Implement/BookDaoImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.47666666" vertical-offset="2099" max-vertical-offset="6593">
+              <caret line="118" column="28" selection-start-line="118" selection-start-column="28" selection-end-line="118" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1104#1121#0" expanded="true" />
+                <element signature="e#2033#2052#0" expanded="true" />
+                <element signature="e#3231#3250#0" expanded="true" />
+                <element signature="e#5067#5084#0" expanded="true" />
+                <element signature="e#5899#5916#0" expanded="true" />
+                <element signature="e#9919#9933#0" expanded="true" />
+                <element signature="e#11990#12007#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="StatisticAction.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BookStore/Action/StatisticActions/StatisticAction.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -36,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OrderDaoImpl.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="OrderDaoImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BookStore/Dao/Implement/OrderDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33215547" vertical-offset="476" max-vertical-offset="3287">
-              <caret line="41" column="56" selection-start-line="41" selection-start-column="56" selection-end-line="41" selection-end-column="56" />
+            <state vertical-scroll-proportion="-4.52" vertical-offset="875" max-vertical-offset="3287">
+              <caret line="63" column="30" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
               <folding>
                 <element signature="e#1368#1385#0" expanded="true" />
                 <element signature="e#2705#2719#0" expanded="true" />
@@ -91,16 +120,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DefaultActionInvocation.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../libs/Struts2/struts-2.3.16.3-src/struts-2.3.16.3/src/xwork-core/src/main/java/com/opensymphony/xwork2/DefaultActionInvocation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="7585" max-vertical-offset="8911">
-              <caret line="464" column="13" selection-start-line="464" selection-start-column="13" selection-end-line="464" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="OrderbookEntity.hbm.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BookStore/Entity/OrderbookEntity.hbm.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -127,19 +146,6 @@
             <state vertical-scroll-proportion="0.0" vertical-offset="475" max-vertical-offset="855">
               <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CustomerDaoImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BookStore/Dao/Implement/CustomerDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="608" max-vertical-offset="1634">
-              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-              <folding>
-                <element signature="method#getCustomerByName#0;class#CustomerDaoImpl#0" expanded="false" />
-                <element signature="method#createCustomer#0;class#CustomerDaoImpl#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -185,7 +191,6 @@
         <option value="$PROJECT_DIR$/src/BookStore/Service/Interface/CustomerService.java" />
         <option value="$PROJECT_DIR$/src/BookStore/Service/Interface/OrderService.java" />
         <option value="$PROJECT_DIR$/src/BookStore/Service/Implement/OrderServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/BookStore/Dao/Implement/BookDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/BookStore/Dao/Implement/CustomerDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/BookStore/Action/CustomerActions/GetAllCustomerInfo.java" />
         <option value="$PROJECT_DIR$/src/BookStore/Service/Implement/CustomerServiceImpl.java" />
@@ -205,6 +210,7 @@
         <option value="$PROJECT_DIR$/web/shopping.jsp" />
         <option value="$PROJECT_DIR$/src/BookStore/Entity/OrdersEntity.hbm.xml" />
         <option value="$PROJECT_DIR$/src/BookStore/Dao/Implement/OrderDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/BookStore/Dao/Implement/BookDaoImpl.java" />
       </list>
     </option>
   </component>
@@ -455,6 +461,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Dao" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StoreTest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StoreTest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BookStore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dao" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Implement" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -879,12 +911,12 @@
       <workItem from="1402841192759" duration="451000" />
       <workItem from="1402842022603" duration="11573000" />
       <workItem from="1402974595241" duration="6241000" />
-      <workItem from="1402982846278" duration="8805000" />
+      <workItem from="1402982846278" duration="9160000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="271524000" />
+    <option name="totallyTimeSpent" value="271879000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -907,7 +939,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -917,18 +949,18 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32703927" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952693" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952693" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4208809" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3523654" sideWeight="0.2688822" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33996937" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952693" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32626426" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22205438" sideWeight="0.754717" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3523654" sideWeight="0.73111784" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3523654" sideWeight="0.73111784" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4208809" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4208809" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36378467" sideWeight="0.60196376" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32463294" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
@@ -1338,14 +1370,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BookStore/Action/BookActions/BookAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="588" max-vertical-offset="1900">
-          <caret line="102" column="23" selection-start-line="102" selection-start-column="23" selection-end-line="102" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/BookStore/Action/LoginActions/LoginAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1083" max-vertical-offset="1444">
@@ -1484,24 +1508,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BookStore/Dao/Implement/BookDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1817" max-vertical-offset="3002">
-          <caret line="134" column="8" selection-start-line="134" selection-start-column="8" selection-end-line="134" selection-end-column="8" />
-          <folding>
-            <element signature="method#getBookByName#0;class#BookDaoImpl#0" expanded="false" />
-            <element signature="e#5065#5082#0" expanded="true" />
-            <element signature="method#removeBookByName#0;class#BookDaoImpl#0" expanded="false" />
-            <element signature="method#getAuthorNamesById#0;class#BookDaoImpl#0" expanded="false" />
-            <element signature="method#createWrittenByFromISBN#0;class#BookDaoImpl#0" expanded="false" />
-            <element signature="method#getWrittenByFromISBN#0;class#BookDaoImpl#0" expanded="false" />
-            <element signature="method#authorNameToEntity#0;class#BookDaoImpl#0" expanded="false" />
-            <element signature="method#wrapperToBookEntity#0;class#BookDaoImpl#0" expanded="false" />
-            <element signature="method#getAuthorEntityByName#0;class#BookDaoImpl#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/shopping.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.142858" vertical-offset="323" max-vertical-offset="6061">
@@ -1616,8 +1622,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BookStore/Dao/Implement/OrderDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33215547" vertical-offset="476" max-vertical-offset="3287">
-          <caret line="41" column="56" selection-start-line="41" selection-start-column="56" selection-end-line="41" selection-end-column="56" />
+        <state vertical-scroll-proportion="-4.52" vertical-offset="875" max-vertical-offset="3287">
+          <caret line="63" column="30" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
           <folding>
             <element signature="e#1368#1385#0" expanded="true" />
             <element signature="e#2705#2719#0" expanded="true" />
@@ -1631,6 +1637,31 @@
             <element signature="method#calculateTotalPrice#0;class#OrderDaoImpl#0" expanded="false" />
             <element signature="method#generateStaticItemWrapper#0;class#OrderDaoImpl#0" expanded="false" />
             <element signature="method#verifyQueryString#0;class#OrderDaoImpl#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BookStore/Action/BookActions/BookAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="588" max-vertical-offset="1900">
+          <caret line="102" column="23" selection-start-line="102" selection-start-column="23" selection-end-line="102" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BookStore/Dao/Implement/BookDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47666666" vertical-offset="2099" max-vertical-offset="6593">
+          <caret line="118" column="28" selection-start-line="118" selection-start-column="28" selection-end-line="118" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1104#1121#0" expanded="true" />
+            <element signature="e#2033#2052#0" expanded="true" />
+            <element signature="e#3231#3250#0" expanded="true" />
+            <element signature="e#5067#5084#0" expanded="true" />
+            <element signature="e#5899#5916#0" expanded="true" />
+            <element signature="e#9919#9933#0" expanded="true" />
+            <element signature="e#11990#12007#0" expanded="true" />
           </folding>
         </state>
       </provider>

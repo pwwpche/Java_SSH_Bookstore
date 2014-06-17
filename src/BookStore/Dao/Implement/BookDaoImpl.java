@@ -24,7 +24,7 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
     @Override
     public String createBook(BookEntityWrapper bookEntityWrapper) {
         Session session = sessionFactory.openSession();
-        if(session.get(BookEntity.class, bookEntityWrapper.getIsbn()) == null)
+        if(session.load(BookEntity.class, bookEntityWrapper.getIsbn()) == null)
         {
             Transaction transaction = session.beginTransaction();
             BookEntity bookEntity = wrapperToBookEntity(bookEntityWrapper);
@@ -94,7 +94,7 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         Session session = sessionFactory.openSession();
         for(int i = 0 ; i < list.size() ; i++)
         {
-            BookEntity bookEntity = (BookEntity)session.get(BookEntity.class, list.get(i));
+            BookEntity bookEntity = (BookEntity)session.load(BookEntity.class, list.get(i));
             BookEntityWrapper wrapper = createFromBookEntity(bookEntity);
             wrappers.add(wrapper);
         }
@@ -146,7 +146,7 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
     public String removeBookByISBN(String ISBN) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        BookEntity bookEntity = (BookEntity)session.get(BookEntity.class, ISBN);
+        BookEntity bookEntity = (BookEntity)session.load(BookEntity.class, ISBN);
         if(bookEntity == null)
         {
             return "Book Not Found!";
@@ -191,7 +191,7 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         String result = "";
         for(int i = 0 ; i < size ; i++)
         {
-            AuthorEntity authorEntity = (AuthorEntity)session.get(AuthorEntity.class, ids.get(i));
+            AuthorEntity authorEntity = (AuthorEntity)session.load(AuthorEntity.class, ids.get(i));
             if(authorEntity != null)
             {
                 result += authorEntity.getAuthorName();
@@ -226,7 +226,7 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         WrittenbyEntity writtenbyEntity = new WrittenbyEntity();
         writtenbyEntity.setIsbn(isbn);
         writtenbyEntity.setAid(authorEntity.getAid());
-        if(null != session.get(BookEntity.class, isbn) ) {
+        if(null != session.load(BookEntity.class, isbn) ) {
             session.save(writtenbyEntity);
             transaction.commit();
         }
@@ -250,7 +250,7 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         WrittenbyEntityPK writtenbyEntityPK = new WrittenbyEntityPK();
         writtenbyEntityPK.setAid(authorEntity.getAid());
         writtenbyEntityPK.setIsbn(isbn);
-        WrittenbyEntity writtenbyEntity = (WrittenbyEntity)session.get(WrittenbyEntity.class, writtenbyEntityPK);
+        WrittenbyEntity writtenbyEntity = (WrittenbyEntity)session.load(WrittenbyEntity.class, writtenbyEntityPK);
         //session.close();
         return writtenbyEntity;
     }
@@ -272,7 +272,7 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         BookEntity newBook = new BookEntity();
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        //newBook = (BookEntity)session.get(BookEntity.class, wrapper.getIsbn());
+        //newBook = (BookEntity)session.load(BookEntity.class, wrapper.getIsbn());
 
 /*
         List<AuthorEntity> authorEntities = authorNameToEntity(wrapper.getAuthors());
@@ -280,7 +280,7 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
             WrittenbyEntity writtenbyEntity = new WrittenbyEntity();
             writtenbyEntity.setIsbn(wrapper.getIsbn());
             writtenbyEntity.setAid(authorEntities.get(i).getAid());
-            //AuthorEntity authorEntity = (AuthorEntity)session.get(AuthorEntity.class, wrapper.getAuthorIds().get(i));
+            //AuthorEntity authorEntity = (AuthorEntity)session.load(AuthorEntity.class, wrapper.getAuthorIds().get(i));
             writtenbyEntity.setAuthorByAid(authorEntities.get(i));
             session.saveOrUpdate(writtenbyEntity);
         }
