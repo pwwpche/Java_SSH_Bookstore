@@ -9,6 +9,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.criteria.Order;
 import java.util.*;
 
 
@@ -18,40 +20,41 @@ public class OrderDaoImpl extends SuperDao implements OrderDao {
     public String createOrder(String username, List<String> bookIsbn, List<Integer> quantity) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
+        /*
         Query query = session.createQuery("from CartEntity as cart where cart.username =:username");
         query.setString("username", username);
         transaction.commit();
         List result = query.list();
         if(result.size() > 0){
-            //Get cart-book relations
-            OrdersEntity ordersEntity = new OrdersEntity();
-
-            //Convert Cart-Book relation to Order-Book relation and save them
-            Collection<OrderbookEntity> set;
-            set = createOrderBookEntities(bookIsbn, quantity);
-            List<OrderbookEntity> orderbookEntities = new ArrayList<OrderbookEntity>();
-            orderbookEntities.addAll(set);
-            for (OrderbookEntity orderbookEntity : orderbookEntities) {
-                session.save(orderbookEntity);
-            }
-
-            //Set up OrderEntity and update CartEntity
-            ordersEntity.setOrderbooksByOid(set);
-            ordersEntity.setUsername(username);
-
-            Date date = new Date();
-            ordersEntity.setOrderYear(date.getYear());
-            ordersEntity.setOrderMonth(date.getMonth());
-            ordersEntity.setOrderDay(date.getDay());
-            ordersEntity.setOrderTotalPrice(calculateTotalPrice(orderbookEntities));
-
-            //Persist entities
-            session.save(ordersEntity);
-            session.persist(ordersEntity);
-            session.close();
-            return "success";
+            //Create Order from cart ::Code
         }
-        return "Error: Cart not exist.";
+        */
+
+        //Get cart-book relations
+        OrdersEntity ordersEntity = new OrdersEntity();
+
+        //Convert Cart-Book relation to Order-Book relation
+        HashSet<OrderbookEntity> set = createOrderBookEntities(bookIsbn, quantity);
+        List<OrderbookEntity> orderbookEntities = new ArrayList<OrderbookEntity>(set);
+         //Set up OrderEntity and update CartEntity
+        ordersEntity.setUsername(username);
+         Date date = new Date();
+         ordersEntity.setOrderYear(date.getYear());
+         ordersEntity.setOrderMonth(date.getMonth());
+         ordersEntity.setOrderDay(date.getDay());
+         ordersEntity.setOrderTotalPrice(calculateTotalPrice(orderbookEntities));
+        //Persist entities
+        session.save(ordersEntity);
+        for(Iterator it=set.iterator();it.hasNext();)
+        {
+            OrderbookEntity temp = (OrderbookEntity)it.next();
+            temp.setOid(ordersEntity.getOid());
+        }
+        ordersEntity.setOrderbooksByOid(set);
+        session.update(ordersEntity);
+        transaction.commit();
+        session.close();
+        return "success";
     }
 
     @Override
@@ -101,13 +104,15 @@ public class OrderDaoImpl extends SuperDao implements OrderDao {
             ordersEntities.addAll(result);
         }
         if(queryName.equals("catagory")){
-            Query query = session.createQuery("from OrdersEntity as orderEntity join orderEntity.orderbooksByOid " +
-                    " as orders join orders.bookByIsbn as book where book.bookCatagory = :queryString");
+            Query query = session.createQuery("from OrdersEntity as orderEntity, OrderbookEntity as orderBookEntity, BookEntity as book " +
+                    "where orderEntity.oid = orderBookEntity.oid and orderBookEntity.isbn = book.isbn " +
+                    "and book.bookCatagory = :queryString");
             query.setString("queryString",queryString);
             transaction.commit();
             List result = query.list();
             ordersEntities.addAll(result);
         }
+        session.close();
         return ordersEntities;
     }
 
@@ -151,7 +156,6 @@ public class OrderDaoImpl extends SuperDao implements OrderDao {
             hql = "select orders."+ queryName + ", sum(orders.orderTotalPrice) from OrdersEntity as orders " +
                     " group by orders." + queryName;
             Query query = session.createQuery(hql);
-            transaction.commit();
             List<Object[]> result = (List<Object[]>)query.list();
             for (Object[]  aResult : result) {
                 String str = "" + aResult[0];
@@ -159,7 +163,8 @@ public class OrderDaoImpl extends SuperDao implements OrderDao {
             }
         } else if(queryName.equals("catagory"))
         {
-            hql = "select book.bookCatagory , sum(book.bookPrice) from OrderbookEntity  as orders join orders.bookByIsbn as book group by book.bookCatagory";
+            hql = "select books.bookCatagory , sum(books.bookPrice) from OrderbookEntity as orders, BookEntity as books" +
+                    " where books.isbn = orders.isbn group by books.bookCatagory";
             Query query = session.createQuery(hql);
             transaction.commit();
             List<Object[]> result = (List<Object[]>)query.list();
@@ -167,9 +172,7 @@ public class OrderDaoImpl extends SuperDao implements OrderDao {
                 countInfoWrapper.insertPair((String)(aResult[0]), (Double)(aResult[1]));
             }
         }
-
-
-
+        session.close();
         return countInfoWrapper;
     }
 
@@ -181,12 +184,12 @@ public class OrderDaoImpl extends SuperDao implements OrderDao {
             BookEntity bookEntity = (BookEntity)session.get(BookEntity.class, isbnList.get(i));
             OrderbookEntity orderbookEntity = new OrderbookEntity();
             orderbookEntity.setQuantity(quantities.get(i));
-            orderbookEntity.setBookByIsbn(bookEntity);
+            //orderbookEntity.setBookByIsbn(bookEntity);
             orderbookEntity.setIsbn(bookEntity.getIsbn());
             orderbookEntity.setPrice(bookEntity.getBookPrice());
             orderbookEntities.add(orderbookEntity);
-            session.save(orderbookEntity);
         }
+        session.close();
         return  orderbookEntities;
     }
 

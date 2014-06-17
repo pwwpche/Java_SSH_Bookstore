@@ -92,9 +92,9 @@ public class ShoppingAction extends ActionSupport implements ServletRequestAware
                 isbnList.add(isbn);
                 quantityList.add(quantity);
             }
-            cartService.buy(username, isbnList, quantityList);
+            //cartService.buy(username, isbnList, quantityList);
             orderService.createOrder(username, isbnList, quantityList);
-            cartService.removeAll(username);
+            //cartService.removeAll(username);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -106,17 +106,6 @@ public class ShoppingAction extends ActionSupport implements ServletRequestAware
         String cartContent = request.getParameter("cartContent");
         HttpSession session = request.getSession();
         session.setAttribute("cartContent", cartContent);
-        /*
-        try {
-            JSONObject obj = new JSONObject(cartContent);
-            String rowData = obj.getString("rows");
-            HttpSession session = request.getSession();
-            session.setAttribute("cartContent", rowData);
-            System.out.println(rowData);
-        }catch (Exception e){
-            System.out.println(e.getCause());
-        }
-        */
         return "success";
     }
 }

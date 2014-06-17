@@ -65,7 +65,7 @@ public class OrderbookEntity {
         result = 31 * result + (price != null ? price.hashCode() : 0);
         return result;
     }
-
+/*
     public BookEntity getBookByIsbn() {
         return bookByIsbn;
     }
@@ -73,4 +73,5 @@ public class OrderbookEntity {
     public void setBookByIsbn(BookEntity bookByIsbn) {
         this.bookByIsbn = bookByIsbn;
     }
+*/
 }

@@ -11,8 +11,10 @@
         </composite-id>
         <property name="quantity" column="quantity"/>
         <property name="price" column="price"/>
+        <!--
         <many-to-one name="bookByIsbn" class="BookStore.Entity.BookEntity">
-            <column name="ISBN" not-null="true"/>
+            <column name="ISBN" not-null="false"/>
         </many-to-one>
+        -->
     </class>
 </hibernate-mapping>
