@@ -9,7 +9,10 @@
     <property name="connection.username">root</property>
     <property name="connection.password"></property>
 
-    <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.</property>
+      <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+      <property name="hibernate.cache.use_query_cache">true</property>
+      <property name=" hibernate.cache.use_second_level_cache">true</property>
+
 
       <mapping class="BookStore.Entity.AuthorEntity"/>
       <mapping class="BookStore.Entity.BookEntity"/>

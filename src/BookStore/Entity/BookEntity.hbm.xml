@@ -5,6 +5,7 @@
 <hibernate-mapping>
 
     <class name="BookStore.Entity.BookEntity" table="book" schema="" catalog="bookstore">
+        <cache usage="read-write"/>
         <id name="isbn" column="ISBN"/>
         <property name="bookName" column="bookName"/>
         <property name="bookPrice" column="bookPrice"/>

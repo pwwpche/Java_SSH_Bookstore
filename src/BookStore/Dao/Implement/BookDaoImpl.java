@@ -12,15 +12,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-
-import java.awt.print.Book;
 import java.util.*;
 
 /**
  * Created by pwwpche on 2014/6/9.
+ *
  */
 @Repository
 public class BookDaoImpl extends SuperDao implements BookDao  {
+
+
     @Override
     public String createBook(BookEntityWrapper bookEntityWrapper) {
         Session session = sessionFactory.openSession();
@@ -63,11 +64,11 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
             Query query = session.createQuery("from BookEntity ");
             query.setFirstResult((pageNum - 1) * pageSize);
             query.setMaxResults(pageSize);
-
+            query.setCacheable(true);
+            query.setCacheRegion("BookEntity");
             List result = query.list();
-            for(int i = 0 ; i < result.size() ; i++)
-            {
-                BookEntity bookEntity =(BookEntity)result.get(i);
+            for (Object aResult : result) {
+                BookEntity bookEntity = (BookEntity) aResult;
                 BookEntityWrapper wrapper = createFromBookEntity(bookEntity);
                 bookEntityWrappers.add(wrapper);
             }
@@ -90,11 +91,9 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
     @Override
     public List<BookEntityWrapper> getBooksByIsbnList(List<String> list) {
         List<BookEntityWrapper> wrappers  = new ArrayList<BookEntityWrapper>();
-        int size = list.size();
         Session session = sessionFactory.openSession();
-        for(int i = 0 ; i < list.size() ; i++)
-        {
-            BookEntity bookEntity = (BookEntity)session.get(BookEntity.class, list.get(i));
+        for (String aList : list) {
+            BookEntity bookEntity = (BookEntity) session.get(BookEntity.class, aList);
             BookEntityWrapper wrapper = createFromBookEntity(bookEntity);
             wrappers.add(wrapper);
         }
@@ -110,6 +109,8 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
             Transaction transaction = session.beginTransaction();
             Query query = session.createQuery("from BookEntity as bookEntity where bookEntity.bookName = :name");
             query.setString("name", bookName);
+            query.setCacheable(true);
+            query.setCacheRegion("BookEntity");
             transaction.commit();
             List result = query.list();
             if(result.size() > 0) {
@@ -131,6 +132,8 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         Session session = sessionFactory.openSession();
         String hql = "from WrittenbyEntity as writtenby where writtenby.isbn = '"+ bookEntity.getIsbn() + "'";
         Query query = session.createQuery(hql);
+        query.setCacheable(true);
+        query.setCacheRegion("WrittenByEntity");
         List result = query.list();
         HashSet<WrittenbyEntity> writtenbyEntities = new HashSet<WrittenbyEntity>();
         writtenbyEntities.addAll((List<WrittenbyEntity>)result);
@@ -155,9 +158,8 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         //Remove all writtenBy relations first
         List<WrittenbyEntity> writtenbyEntities = new ArrayList<WrittenbyEntity>();
         writtenbyEntities.addAll(bookEntity.getWrittenbiesByIsbn());
-        int size = writtenbyEntities.size();
-        for(int i = 0 ; i < size ; i++){
-            session.delete(writtenbyEntities.get(i));
+        for (WrittenbyEntity writtenbyEntity : writtenbyEntities) {
+            session.delete(writtenbyEntity);
         }
 
         //Remove the book
@@ -179,21 +181,18 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         {
             return "Book Not Found!";
         }
-        session.delete((BookEntity)result.get(0));
+        session.delete(result.get(0));
         transaction.commit();
         session.close();
         return "success";
     }
 
     private String getAuthorNamesById(List<Integer> ids) {
-        int size = ids.size();
         Session session = sessionFactory.openSession();
         String result = "";
-        for(int i = 0 ; i < size ; i++)
-        {
-            AuthorEntity authorEntity = (AuthorEntity)session.get(AuthorEntity.class, ids.get(i));
-            if(authorEntity != null)
-            {
+        for (Integer id : ids) {
+            AuthorEntity authorEntity = (AuthorEntity) session.get(AuthorEntity.class, id);
+            if (authorEntity != null) {
                 result += authorEntity.getAuthorName();
                 result += ";";
             }
@@ -210,6 +209,8 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         Transaction transaction = session.beginTransaction();
         String hql = "from AuthorEntity as author where author.authorName = :authorName";
         Query query = session.createQuery(hql);
+        query.setCacheable(true);
+        query.setCacheRegion("AuthorEntity");
         query.setString("authorName", authorName);
         List result = query.list();
         if (result.size() == 0) {
@@ -239,6 +240,7 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         //Get Author
         String hql = "from AuthorEntity as author where author.authorName = :authorName";
         Query query = session.createQuery(hql);
+        query.setCacheable(true);
         query.setString("authorName", authorName);
         List result = query.list();
         if(result.size() == 0) {
@@ -250,18 +252,16 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         WrittenbyEntityPK writtenbyEntityPK = new WrittenbyEntityPK();
         writtenbyEntityPK.setAid(authorEntity.getAid());
         writtenbyEntityPK.setIsbn(isbn);
-        WrittenbyEntity writtenbyEntity = (WrittenbyEntity)session.get(WrittenbyEntity.class, writtenbyEntityPK);
         //session.close();
-        return writtenbyEntity;
+        return (WrittenbyEntity)session.get(WrittenbyEntity.class, writtenbyEntityPK);
     }
 
     private List<AuthorEntity> authorNameToEntity(String names){
         String[] authorNames = names.split(";");
         Session session = sessionFactory.openSession();
         List<AuthorEntity> authorEntities = new ArrayList<AuthorEntity>();
-        int size = authorNames.length;
-        for(int i = 0 ; i < size ; i++){
-            authorEntities.add(getAuthorEntityByName(authorNames[i]));
+        for (String authorName : authorNames) {
+            authorEntities.add(getAuthorEntityByName(authorName));
         }
         session.close();
         return authorEntities;
@@ -290,9 +290,10 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
 */
         //Remove Previous writtenBy relations
         Query query = session.createQuery("from WrittenbyEntity as writtenBy where writtenBy.isbn = '" + wrapper.getIsbn() + "'");
+        query.setCacheable(true);
         List result = query.list();
         for (Object aResult : result) {
-            session.delete((WrittenbyEntity) aResult);
+            session.delete( aResult);
         }
         transaction.commit();
         session.flush();
@@ -304,11 +305,9 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
 
         //Get author names
         String authorNames[] = wrapper.getAuthors().split(";");
-        int size = authorNames.length;
         Collection<WrittenbyEntity> writtenbyEntities =  new HashSet<WrittenbyEntity>();
-        for(int i = 0 ; i < size ; i++)
-        {
-            WrittenbyEntity writtenbyEntity = createWrittenByFromISBN(wrapper.getIsbn(), authorNames[i]);
+        for (String authorName : authorNames) {
+            WrittenbyEntity writtenbyEntity = createWrittenByFromISBN(wrapper.getIsbn(), authorName);
             writtenbyEntities.add(writtenbyEntity);
         }
         newBook.setWrittenbiesByIsbn(writtenbyEntities);
@@ -322,6 +321,8 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
         Transaction transaction = session.beginTransaction();
         String hql = "from AuthorEntity as author where author.authorName = '" + name + "'";
         Query query = session.createQuery(hql);
+        query.setCacheable(true);
+        query.setCacheRegion("AuthorEnitty");
         List<AuthorEntity> result = (List<AuthorEntity>) query.list();
 
         if(result.size() > 0) {

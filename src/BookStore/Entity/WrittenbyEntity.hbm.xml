@@ -5,6 +5,7 @@
 <hibernate-mapping>
 
     <class name="BookStore.Entity.WrittenbyEntity" table="writtenby" schema="" catalog="bookstore">
+        <cache usage="read-write"/>
         <composite-id mapped="true" class="BookStore.Entity.WrittenbyEntityPK">
             <key-property name="isbn" column="ISBN"/>
             <key-property name="aid" column="aid"/>
