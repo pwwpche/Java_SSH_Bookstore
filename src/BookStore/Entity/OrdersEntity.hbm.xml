@@ -13,7 +13,7 @@
         <property name="orderMonth" column="orderMonth"/>
         <property name="orderDay" column="orderDay"/>
         <property name="orderTotalPrice" column="orderTotalPrice"/>
-        <set name="orderbooksByOid" inverse="true">
+        <set name="orderbooksByOid" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="oid" not-null="true"/>
             </key>

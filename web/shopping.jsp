@@ -26,6 +26,9 @@
     {
         //If session found, then return content of Cart stored in the session
         cartInfo =(String) SessionListener.getSessionById(CookieManager.getSessionIdByNameInCookie(request, "cart")).getAttribute("cartContent");
+        if(cartInfo == null || cartInfo.equals("null")){
+            cartInfo = "{\"total\":0,\"rows\":[]}";
+        }
         System.out.println("cartInfo get");
         System.out.println(cartInfo);
     }

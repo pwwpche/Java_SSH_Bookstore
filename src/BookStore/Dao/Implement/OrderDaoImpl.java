@@ -39,7 +39,7 @@ public class OrderDaoImpl extends SuperDao implements OrderDao {
          //Set up OrderEntity and update CartEntity
         ordersEntity.setUsername(username);
          Date date = new Date();
-         ordersEntity.setOrderYear(date.getYear());
+         ordersEntity.setOrderYear(date.getYear() + 1900);
          ordersEntity.setOrderMonth(date.getMonth());
          ordersEntity.setOrderDay(date.getDay());
          ordersEntity.setOrderTotalPrice(calculateTotalPrice(orderbookEntities));
@@ -49,6 +49,7 @@ public class OrderDaoImpl extends SuperDao implements OrderDao {
         {
             OrderbookEntity temp = (OrderbookEntity)it.next();
             temp.setOid(ordersEntity.getOid());
+            session.save(temp);
         }
         ordersEntity.setOrderbooksByOid(set);
         session.update(ordersEntity);
