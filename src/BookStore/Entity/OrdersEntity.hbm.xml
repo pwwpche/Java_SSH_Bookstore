@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="BookStore.Entity.OrdersEntity" table="orders" schema="" catalog="bookstore">
+        <id name="oid" column="oid">
+            <generator class="identity"></generator>
+        </id>
+        <property name="username" column="username"/>
+        <property name="orderYear" column="orderYear"/>
+        <property name="orderMonth" column="orderMonth"/>
+        <property name="orderDay" column="orderDay"/>
+        <property name="orderTotalPrice" column="orderTotalPrice"/>
+        <set name="orderbooksByOid" inverse="true">
+            <key>
+                <column name="oid" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="BookStore.Entity.OrderbookEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>

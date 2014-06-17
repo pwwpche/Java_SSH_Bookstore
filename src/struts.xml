@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.configuration.xml.reload" value="true"/>
+    <constant name="struts.custom.i18n.resources" value="globalMessages" />
+
+    <package name="BookStore" extends="struts-default, json-default" namespace="/">
+      <interceptors>
+            <interceptor name="login" class="BookStore.Interceptor.LoginInterceptor"/>
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="login"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="myStack"/>
+        <global-results>
+            <result name="login" type="redirect">/index.jsp</result>
+        </global-results>
+
+        <action name="loginAction" class="BookStore.Action.LoginActions.LoginAction" method="execute" >
+            <result name="user">/shopping.jsp</result>
+            <result name="admin">/adminUser.jsp</result>
+            <result name="input">/index.jsp?done=input</result>
+        </action>
+
+        <action name="checkUserExistance" class="BookStore.Action.RegisterActions.RegisterAction" method="checkUserExistance">
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+        <action name="registerUser" class="BookStore.Action.RegisterActions.RegisterAction" method="registerUser">
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+
+        <action name="GetAllCustomerInfo" class="BookStore.Action.CustomerActions.GetAllCustomerInfo" method="getFormData">
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+
+        <action name="CreateCustomer" class="BookStore.Action.CustomerActions.CreateCustomer" method="execute">
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+        <action name="ModifyCustomer" class="BookStore.Action.CustomerActions.ModifyCustomer" method="execute">
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+        <action name="RemoveCustomer" class="BookStore.Action.CustomerActions.RemoveCustomer" method="execute">
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+
+
+        <action name="GetAllBooks" class="BookStore.Action.BookActions.BookAction" method="getAllBooks">
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+        <action name="updateBooks" class="BookStore.Action.BookActions.BookAction" method="updateBook">
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+        <action name="createBooks" class="BookStore.Action.BookActions.BookAction" method="createBook">
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+        <action name="removeBooks" class="BookStore.Action.BookActions.BookAction" method="removeBookByIsbn">
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+
+
+
+        <action name="getCartContent" class="BookStore.Action.ShoppingActions.ShoppingAction" method="getCartContent" >
+            <result type="json">
+                <param name="root">dataMap.data</param>
+            </result>
+        </action>
+        <action name="buy" class="BookStore.Action.ShoppingActions.ShoppingAction" method="buy" >
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+        <action name="saveCartToSession" class="BookStore.Action.ShoppingActions.ShoppingAction" method="saveCartToSession" >
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+
+        <action name="getAllStatisticsItems" class="BookStore.Action.StatisticActions.StatisticAction" method="getAllStatisticsItems" >
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+        <action name="getCountsInfo" class="BookStore.Action.StatisticActions.StatisticAction" method="getCountInfo" >
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+        <action name="getStatisticsByItem" class="BookStore.Action.StatisticActions.StatisticAction" method="getStatisticsByItem" >
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
+    </package>
+
+
+</struts>

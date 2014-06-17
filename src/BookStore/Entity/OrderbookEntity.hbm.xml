@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="BookStore.Entity.OrderbookEntity" table="orderbook" schema="" catalog="bookstore">
+        <composite-id mapped="true" class="BookStore.Entity.OrderbookEntityPK">
+            <key-property name="oid" column="oid"/>
+            <key-property name="isbn" column="ISBN"/>
+        </composite-id>
+        <property name="quantity" column="quantity"/>
+        <property name="price" column="price"/>
+        <many-to-one name="bookByIsbn" class="BookStore.Entity.BookEntity">
+            <column name="ISBN" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
