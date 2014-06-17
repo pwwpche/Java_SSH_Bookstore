@@ -12,7 +12,7 @@ public class LoginInterceptor extends AbstractInterceptor {
     public String intercept(ActionInvocation invocation) throws Exception {
         String name = invocation.getInvocationContext().getName();
 
-        if (name.contains("loginAction") || name.contains("register") || name.contains("Cart")) {
+        if (name.contains("loginAction") || name.contains("register") || name.contains("Cart") || name.contains("AllBooks")) {
             return invocation.invoke();
         } else {
             //Get User Session

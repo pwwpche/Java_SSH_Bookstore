@@ -13,10 +13,9 @@
 <head>
 <%
     String session_id = session.getId();
-    String username = (String)session.getAttribute("username");
-    System.out.println("username=" + username);
+    String username = session.getAttribute("username") != null ? (String)session.getAttribute("username") : "";
+    String welcomeTitle = (username == "") ? "<a href=\"index.jsp\">Login</a>" :  "<a href=\"index.jsp\">Sign out</a>";
     String cartInfo = "{\"total\":0,\"rows\":[]}";
-    System.out.println("cartInfo=" + cartInfo);
     if(CookieManager.getSessionIdByNameInCookie(request, "cart") == null)
     {
         //Create Cookie to store current session of this user
@@ -45,11 +44,12 @@
 <!-- Custom styles for this template -->
 <link href="css/navbar.css" rel="stylesheet">
 
-    <script type="text/javascript" src="easyui/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
-    <script type="text/javascript" src="easyui/jquery.easyui.min.js" ></script>
+<script type="text/javascript" src="script/jquery.min.js"></script>
+<script type="text/javascript" src="script/jquery.easyui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/easyui.css">
+<link rel="stylesheet" type="text/css" href="css/icon.css">
+<link rel="stylesheet" type="text/css" href="css/demo.css">
+<script type="text/javascript" src="script/easyui-lang-zh_CN.js"></script>
 
 
     <title>User Interface</title>
@@ -58,6 +58,7 @@
 
     //Shopping Cart
     var cartData = <%=cartInfo%>;
+    console.log(cartData);
     var totalCost = 0;
 
         $(document).ready(function(){
@@ -265,11 +266,14 @@
         <div class="container-fluid">
             <div class="navbar-header">
 
-                <a class="navbar-brand" href="#">Book view</a>
+                <a class="navbar-brand" href="./">Book view</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="./">Sign out</a></li>
+                    <li class="active"><%=welcomeTitle%></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="./">Welcome <%=username%></a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->

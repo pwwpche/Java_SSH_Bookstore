@@ -24,7 +24,7 @@
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
 
-    <script src="easyui/jquery.min.js"></script>
+    <script src="script/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
             $("#submit").click(function(){

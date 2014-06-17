@@ -16,11 +16,12 @@
 
     <!-- Custom styles for this template -->
     <link href="navbar.css" rel="stylesheet">
-    <script type="text/javascript" src="easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
+    <script type="text/javascript" src="script/jquery.min.js"></script>
+    <script type="text/javascript" src="script/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/easyui.css">
+    <link rel="stylesheet" type="text/css" href="css/icon.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <script type="text/javascript" src="script/easyui-lang-zh_CN.js"></script>
     <style type="text/css">
         #fm{
             margin:0;

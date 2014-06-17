@@ -11,6 +11,8 @@ $RECYCLE.BIN/
 
 #Artifacts
 out/*
+out/artifacts/*
+
 
 # Windows Installer files
 *.cab
