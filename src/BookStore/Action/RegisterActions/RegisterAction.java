@@ -85,9 +85,9 @@ public class RegisterAction extends ActionSupport implements ServletRequestAware
 
         String result = customerService.addCustomer(customerEntity);
         if(result.equals("success")) {
-            dataMap.put("success",true );
+            dataMap.put("status","success" );
         }else{
-            dataMap.put("success", false);
+            dataMap.put("status", "error");
             dataMap.put("message", result);
         }
         return "success";

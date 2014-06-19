@@ -21,7 +21,8 @@
     <link rel="stylesheet" type="text/css" href="css/easyui.css">
     <link rel="stylesheet" type="text/css" href="css/icon.css">
     <link rel="stylesheet" type="text/css" href="css/demo.css">
-    <script type="text/javascript" src="script/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/signin.css">
+    <script type="text/javascript" src="script/easyui-lang-en.js"></script>
     <style type="text/css">
         #fm{
             margin:0;

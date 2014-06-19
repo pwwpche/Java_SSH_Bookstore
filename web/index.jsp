@@ -38,7 +38,7 @@
         <div class="col-sm-4">
 
             <s:form cssClass="form-signin" action="loginAction" method="POST" namespace="/">
-                <h2 class="form-signin-heading">Please log in</h2>
+                <h2 class="form-signin-heading">Book Store</h2>
                 Username<s:textfield type="text" cssClass="form-control" placeholder="Username" name="username" label="Name?" />
                 Password<s:password  type="password" cssClass="form-control" placeholder="Password" name="password"  />
                 <s:submit cssClass="btn btn-lg btn-primary btn-block" type="submit" value="submit"/>
@@ -64,7 +64,7 @@
             <s:property value="#parameters.done"/>
         </div>
         <div class="col-sm-4">
-            <button class="btn btn-lg" onclick="reg()" style="float: right">Register</button>
+            <button class="btn btn-default" onclick="reg()" style="float: right">Don't have an account?</button>
         </div>
 
     </div>

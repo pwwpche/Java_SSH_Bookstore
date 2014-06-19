@@ -33,6 +33,19 @@
                 var confirmPass = document.getElementById("confirmPass").value;
                 var email = document.getElementById("email").value;
                 var birthday = document.getElementById("birthday").value;
+                if(username.length == 0){
+                    alert("Enter user name");
+                    return ;
+                }
+                if(password != confirmPass){
+                    alert("The password you entered are not the same.")
+                    return ;
+                }
+                var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+                if(reg.test(email) == false){
+                    alert("Email address is not correct");
+                    return ;
+                }
                 if(password == confirmPass
                     && username != ""
                     && email != ""
@@ -51,14 +64,14 @@
                         },
                         success: function(data)
                         {
-                            if(data.status != "Error")
+                            if(data.status != "error")
                             {
                                 alert("Registration Complete, Please Login.");
                                 window.location.href = "index.jsp";
                             }
                             else
                             {
-                                alert("Error!\n" + data.message);
+                                alert(data.message);
                             }
                         },
                         error: function(data){
@@ -126,6 +139,7 @@
             <input type="checkbox" value="remember-me"> Remember me
         </label>
         -->
+        <br>
         <button id="submit" class="btn btn-lg btn-primary" type="button">Sign in</button>
     </form>
 

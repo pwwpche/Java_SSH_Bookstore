@@ -56,7 +56,8 @@
 <link rel="stylesheet" type="text/css" href="css/easyui.css">
 <link rel="stylesheet" type="text/css" href="css/icon.css">
 <link rel="stylesheet" type="text/css" href="css/demo.css">
-<script type="text/javascript" src="script/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" type="text/css" href="css/signin.css">
+<script type="text/javascript" src="script/easyui-lang-en.js"></script>
 
 
     <title>User Interface</title>
@@ -76,12 +77,12 @@
                 data: cartData.rows,
                 columns:[[
                     {field:'bookName',title:'Name',width:100},
-                    {field: 'quantity', title: 'Storage', width: 30,  sortable: true,
+                    {field: 'quantity', title: 'quantity', width: 50,  sortable: true,
                         sorter:function(a,b){
                             return (a>b?1:-1);
                         }
                     },
-                    {field: 'price', title: 'Price', width: 30,  sortable: true,
+                    {field: 'price', title: 'Price', width: 70,  sortable: true,
                         sorter:function(a,b){
                             return (a>b?1:-1);
                         }
@@ -301,7 +302,7 @@
         <div class="col-lg-4">
             <div class="cart">
                 <p>Shopping Cart</p>
-                <table id="cartcontent" style="width:400px;height:auto;">
+                <table id="cartcontent" style="width:auto ;height:auto;">
                     <thead>
                     <tr>
                         <th field="isbn" width=0></th>
