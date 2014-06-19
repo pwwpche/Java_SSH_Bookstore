@@ -6,7 +6,6 @@ import BookStore.Entity.CustomerEntity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,7 +13,9 @@ import java.util.List;
 
 /**
  * Created by pwwpche on 2014/6/7.
+ *
  */
+
 @Repository
 public class CustomerDaoImpl extends SuperDao implements CustomerDao  {
 
@@ -46,9 +47,8 @@ public class CustomerDaoImpl extends SuperDao implements CustomerDao  {
             transaction.commit();
 
             List result = query.list();
-            for(int i = 0 ; i < result.size() ; i++)
-            {
-                customerEntities.add((CustomerEntity)result.get(i));
+            for (Object aResult : result) {
+                customerEntities.add((CustomerEntity) aResult);
             }
             session.close();
             return customerEntities;
@@ -72,11 +72,12 @@ public class CustomerDaoImpl extends SuperDao implements CustomerDao  {
         if(getCustomerByName(customerEntity.getUsername()) == null)
         {
             Session session = sessionFactory.openSession();
+            Transaction transaction = session.beginTransaction();
             session.save(customerEntity);
             CartEntity cartEntity = new CartEntity();
             cartEntity.setUsername(customerEntity.getUsername());
             session.save(cartEntity);
-            session.flush();
+            transaction.commit();
             session.close();
             return "success";
         }

@@ -3,8 +3,6 @@ package BookStore.Service.Implement;
 import BookStore.Dao.Interface.CustomerDao;
 import BookStore.Entity.CustomerEntity;
 import BookStore.Service.Interface.CustomerService;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,6 +10,7 @@ import java.util.List;
 
 /**
  * Created by pwwpche on 2014/6/7.
+ *
  */
 
 @Service

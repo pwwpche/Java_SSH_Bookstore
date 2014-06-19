@@ -7,6 +7,7 @@ public class CountInfoItem{
     public void setName(String str){
         this.itemName = str;
     }
+
     public String getItemName(){
         return itemName;
     }

@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="BookStore.Entity.WrittenbyEntity" table="writtenby" schema="" catalog="bookstore">
+    <class name="BookStore.Entity.WrittenbyEntity" table="writtenby" schema="" catalog="bookstore2">
         <cache usage="read-write"/>
         <composite-id mapped="true" class="BookStore.Entity.WrittenbyEntityPK">
             <key-property name="isbn" column="ISBN"/>

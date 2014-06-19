@@ -1,5 +1,4 @@
-<%@ page import="Utility.CookieManager" %>
-<%@ page import="Utility.SessionListener" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: pwwpche
@@ -12,10 +11,10 @@
 <html>
 <head>
 <%
-    String session_id = session.getId();
     String username = session.getAttribute("username") != null ? (String)session.getAttribute("username") : "";
-    String welcomeTitle = (username == "") ? "<a href=\"index.jsp\">Login</a>" :  "<a href=\"index.jsp\">Sign out</a>";
-    String cartInfo = "{\"total\":0,\"rows\":[]}";
+    String welcomeTitle = (username.equals("")) ? "<a href=\"index.jsp\">Login</a>" :  "<a href=\"index.jsp\">Sign out</a>";
+    String cartInfo = session.getAttribute("cartContent") == null ? "{\"total\":0,\"rows\":[]}" : (String)session.getAttribute("cartContent");
+            /*
     if(CookieManager.getSessionIdByNameInCookie(request, "cart") == null)
     {
         //Create Cookie to store current session of this user
@@ -36,8 +35,13 @@
     {
         //If SessionID has been changed, then reset it to current sessionId
         //And cart content will not be loaded..
+
+        System.out.println("request.getRequestedSessionId()=" + request.getRequestedSessionId());
+        System.out.println("CookieManager.getSessionIdByNameInCookie(request, \"cart\")=" + CookieManager.getSessionIdByNameInCookie(request, "cart"));
+        System.out.println("CookieManager.getSessionIdByNameInCookie(request, \"JSESSIONID\")=" + CookieManager.getSessionIdByNameInCookie(request, "JSESSIONID"));
         CookieManager.setCookie(request,"cart", request.getRequestedSessionId(), response);
     }
+    */
 
 %>
 
@@ -61,7 +65,8 @@
 
     //Shopping Cart
     var cartData = <%=cartInfo%>;
-    console.log(cartData);
+    var emptyData = {"total":0,"rows":[]};
+    var username = "<%=username%>";
     var totalCost = 0;
 
         $(document).ready(function(){
@@ -89,6 +94,7 @@
                             {
                                 totalCost += (cartData.rows[i].price) * (cartData.rows[i].quantity);
                             }
+                            totalCost = Math.round(totalCost*100)/100;
                             $('div.cart .total').html('Total: '+totalCost);
                             console.log(cartData);
                             return '<button class="removeCart" onclick="removeCartSelected(' + index + ')">Remove</button>';
@@ -136,7 +142,6 @@
         });
 
         function getCartSelected(index){
-            console.log("select+"+index);
             $("#bookView").datagrid("selectRow", index);
             var selected = $('#bookView').datagrid('getSelected');
             console.log("selected = " + selected);
@@ -184,6 +189,7 @@
             }
             add();
             totalCost += price;
+            totalCost = Math.round(totalCost*100)/100;
             $('#cartcontent').datagrid('loadData', cartData);
             console.log("loaded");
             $('div.cart .total').html('Total: '+totalCost);
@@ -206,6 +212,7 @@
                     if (row.isbn == isbn){
                         cartData.rows[i].quantity -= 1;
                         totalCost -= row.price;
+                        totalCost = Math.round(totalCost*100)/100;
                         if(row.quantity == 0)
                         {
                             cartData.total -= 1;
@@ -224,6 +231,11 @@
         }
 
         function upload(){
+            if(username == ""){
+                alert("Please login first!");
+                saveCartToSession();
+                window.location.href = "index.jsp";
+            }
             $.ajax({
                 url: "<s:url action="buy"/>",
                 type: "post",
@@ -232,11 +244,11 @@
                     rowData: JSON.stringify($('#cartcontent').datagrid('getData'))
                 },
                 success: function(data){
-                    alert("upload success");
+                    alert("Success!");
+                    $('#cartcontent').datagrid('loadData', emptyData);
                 },
                 error: function(data){
-                    alert("upload failed");
-                    alert(data.msg);
+                    alert("upload failed\n" + data.msg);
                 }
             });
         }

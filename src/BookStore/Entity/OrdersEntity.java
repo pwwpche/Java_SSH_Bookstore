@@ -1,5 +1,6 @@
 package BookStore.Entity;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 /**
@@ -55,11 +56,15 @@ public class OrdersEntity {
     }
 
     public Float getOrderTotalPrice() {
-        return orderTotalPrice;
+        BigDecimal bd = new BigDecimal(Float.toString(orderTotalPrice));
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 
     public void setOrderTotalPrice(Float orderTotalPrice) {
-        this.orderTotalPrice = orderTotalPrice;
+        BigDecimal bd = new BigDecimal(Float.toString(orderTotalPrice));
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        this.orderTotalPrice = bd.floatValue();
     }
 
     @Override

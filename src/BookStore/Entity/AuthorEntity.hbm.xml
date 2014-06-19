@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="BookStore.Entity.AuthorEntity" table="author" schema="" catalog="bookstore">
+    <class name="BookStore.Entity.AuthorEntity" table="author" schema="" catalog="bookstore2">
         <cache usage="read-write"/>
         <id name="aid" column="aid">
             <generator class="identity"></generator>

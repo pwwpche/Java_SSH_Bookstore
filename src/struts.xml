@@ -25,7 +25,7 @@
         <action name="loginAction" class="BookStore.Action.LoginActions.LoginAction" method="execute" >
             <result name="user">/shopping.jsp</result>
             <result name="admin">/adminUser.jsp</result>
-            <result name="input">/index.jsp?done=input</result>
+            <result name="input">/index.jsp</result>
         </action>
 
         <action name="checkUserExistance" class="BookStore.Action.RegisterActions.RegisterAction" method="checkUserExistance">

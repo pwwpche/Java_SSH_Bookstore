@@ -76,8 +76,8 @@ public class ShoppingAction extends ActionSupport implements ServletRequestAware
 
     public String buy(){
         dataMap.clear();
-        //String username = request.getParameter("username");
-        String username = "aaa";
+        HttpSession session = request.getSession();
+        String username = (String)session.getAttribute("username");
         String rowData = request.getParameter("rowData");
         try {
             JSONObject row = new JSONObject(rowData);
@@ -93,7 +93,8 @@ public class ShoppingAction extends ActionSupport implements ServletRequestAware
                 quantityList.add(quantity);
             }
             //cartService.buy(username, isbnList, quantityList);
-            orderService.createOrder(username, isbnList, quantityList);
+            orderService.createOrder(username,isbnList, quantityList);
+            session.setAttribute("cartContent","");
             //cartService.removeAll(username);
         }catch(Exception e){
             System.out.println(e.getMessage());

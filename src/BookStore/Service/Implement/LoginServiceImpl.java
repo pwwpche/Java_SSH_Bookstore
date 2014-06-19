@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 /**
  * Created by pwwpche on 2014/6/7.
+ *
  */
 @Service
 public class LoginServiceImpl implements LoginService{

@@ -52,11 +52,8 @@ public class CartDaoImpl  extends SuperDao implements CartDao{
             //Get Cart Contents
             HashSet<CartbookEntity> cartbookEntities = new HashSet<CartbookEntity>();
             cartbookEntities.addAll(cartEntity.getCartbooksByCid());
-            for(Iterator it=cartbookEntities.iterator();it.hasNext();)
-            {
-                CartbookEntity temp = (CartbookEntity)it.next();
-                if(temp.getIsbn().equals(bookEntity.getIsbn()))
-                {
+            for (CartbookEntity temp : cartbookEntities) {
+                if (temp.getIsbn().equals(bookEntity.getIsbn())) {
                     temp.setQuantity(quantity);
                 }
             }

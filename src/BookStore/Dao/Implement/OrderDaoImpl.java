@@ -10,7 +10,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.criteria.Order;
 import java.util.*;
 
 
@@ -66,7 +65,8 @@ public class OrderDaoImpl extends SuperDao implements OrderDao {
         query.setFirstResult((pageNum - 1) * pageSize);
         query.setMaxResults(pageSize);
         transaction.commit();
-        List result = query.list();
+        List result;
+        result = query.list();
         List<OrdersEntity> ordersEntities = new ArrayList<OrdersEntity>();
         ordersEntities.addAll(result);
         return ordersEntities;
@@ -152,7 +152,7 @@ public class OrderDaoImpl extends SuperDao implements OrderDao {
         countInfoWrapper.setItemName(queryName);
         countInfoWrapper.setItemString(queryString);
 
-        String hql =  "";
+        String hql;
         if(verifyQueryString(queryName) && !queryName.equals("catagory")) {
             hql = "select orders."+ queryName + ", sum(orders.orderTotalPrice) from OrdersEntity as orders " +
                     " group by orders." + queryName;

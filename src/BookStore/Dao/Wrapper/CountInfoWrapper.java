@@ -1,8 +1,4 @@
 package BookStore.Dao.Wrapper;
-
-import BookStore.Entity.OrderbookEntity;
-import BookStore.Entity.OrdersEntity;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -83,7 +83,7 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
     @Override
     public Long getBooksTotal() {
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("select count(*) from OrdersEntity as ordersEntity");
+        Query query = session.createQuery("select count(*) from BookEntity as bookEntity");
         return Long.parseLong(query.uniqueResult().toString());
     }
 
