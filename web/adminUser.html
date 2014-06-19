@@ -1,21 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  Book: pwwpche
-  Date: 2014/5/3
-  Time: 15:55
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Book Administration</title>
     <!-- Bootstrap core CSS -->
     <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/navbar.css" rel="stylesheet">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>User Administration</title>
     <script type="text/javascript" src="script/jquery.min.js"></script>
     <script type="text/javascript" src="script/jquery.easyui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/easyui.css">
@@ -44,58 +37,58 @@
             width:80px;
         }
     </style>
+
+    <title>User Interface</title>
+
     <script type="text/javascript">
 
-        var url = '<s:url action="createBooks"/>';
-        function newBook(){
-            $("#inputISBN").show();
-            $('#dlg').dialog('open').dialog('setTitle','New Book');
+        var url = "GetAllCustomerInfo";
+        function newUser(){
+            $('#dlg').dialog('open').dialog('setTitle','New User');
+            $("#inputUser").show();
             $('#fm').form('clear');
-            url = '<s:url action="createBooks"/>';
+            url = "http://localhost:8080/CreateCustomer.action";
         }
-        function editBook(){
-            $("#inputISBN").hide();
+        function editUser(){
+            $("#inputUser").hide();
             var row = $('#dg').datagrid('getSelected');
             if (row){
-                $('#dlg').dialog('open').dialog('setTitle','Edit Book');
+                $('#dlg').dialog('open').dialog('setTitle','Edit User');
                 $('#fm').form('load',row);
-                url = '<s:url action="updateBooks"/>';
-
+                url = 'http://localhost:8080/ModifyCustomer.action';
             }
         }
-        function saveBook(){
-            console.log("saveBook");
+        function saveUser(){
             $('#fm').form('submit',{
-                url: url,
                 dataType: 'json',
+                url: url,
                 onSubmit: function(){
-                     return $(this).form('validate');
+                    return $(this).form('validate');
                 },
                 success: function(result){
-                    console.log(result);
-                    $('#dlg').dialog('close');		// close the dialog
-                    $('#dg').datagrid('reload');	// reload the book data
+                        $('#dlg').dialog('close');		// close the dialog
+                        $('#dg').datagrid('reload');	// reload the user data
                 },
-                error:function(result){
-                    console.log(result);
+                error: function(result){
                     $.messager.show({
                         title: 'Error',
                         msg: result.msg
                     });
-                 }
+                    console.log(result);
+                }
 
             });
         }
-        function removeBook(){
+        function removeUser(){
             var row = $('#dg').datagrid('getSelected');
             if (row){
-                $.messager.confirm('Confirm','Are you sure you want to remove this book?',function(r){
+                $.messager.confirm('Confirm','Are you sure you want to remove this user?',function(r){
                     if (r){
                         console.log(row);
-                        $.post('<s:url action="removeBooks"/>'+'?isbn=' + row.isbn,{id:row.id},function(result){
+                        $.post('http://localhost:8080/RemoveCustomer.action' +'?username=' + row.username,{id:row.id},function(result){
                             console.log(result);
                             if (result.success){
-                                $('#dg').datagrid('reload');	// reload the book data
+                                $('#dg').datagrid('reload');	// reload the user data
                             } else {
                                 $.messager.show({	// show error message
                                     title: 'Error',
@@ -120,9 +113,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="adminUser.jsp">Manage User</a></li>
-                    <li  class="active"><a href="adminBooks.jsp">Manage Books</a></li>
-                    <li><a href="statistics.jsp">Manage Sales</a></li>
+                    <li class="active"><a href="adminUser.jsp">Manage User</a></li>
+                    <li><a href="adminBooks.jsp">Manage Books</a></li>
+                    <li><a href="statistics.jsp">Sale Statistics</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active"><a href="./">Sign out</a></li>
@@ -130,70 +123,57 @@
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
     </div>
-    <h2 class="panel-heading">Book Management</h2>
+    <h2 class="panel-heading">User Management</h2>
     <div class="row">
-        <div class="col-lg-12">
-            <table id="dg" title="Book Management" class="easyui-datagrid" style="width:1000px;height:400px"
-                   url='<s:url action="GetAllBooks"/>'
+        <div class="col-lg-6" style="margin: 0 auto">
+            <table id="dg" title="User Management" class="easyui-datagrid" style="width:1000px ;height:auto"
+                   url="http://localhost:8080/GetAllCustomerInfo.action"
                    toolbar="#toolbar" pagination="true"
-                   rownumbers="true" fitColumns="true" singleSelect="true">
+                   rownumbers="true" fitColumns="true" singleSelect="true" method="GET">
                 <thead>
                 <tr>
-                    <th field="isbn" width="150">ISBN</th>
-                    <th field="bookName" width="250">Book Name</th>
-                    <th field="authors" width="300">Book Authors</th>
-                    <th field="bookCatagory" width="100">Catagory</th>
-                    <th field="bookPrice" width="150">price</th>
+                    <th field="username" width="200">Username</th>
+                    <th field="password" width="200">Password</th>
+                    <th field="email" width="200">Email</th>
+                    <th field="birthday" width="200">Birthday</th>
                 </tr>
                 </thead>
             </table>
             <div id="toolbar">
-                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newBook()">New Book</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editBook()">Edit Book</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeBook()">Remove Book</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeUser()">Remove User</a>
             </div>
 
             <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
                  closed="true" buttons="#dlg-buttons">
-                <div class="ftitle">Book Information</div>
-
+                <div class="ftitle">User Information</div>
                 <form id="fm" method="post" novalidate>
-                    <div class="fitem" id="inputISBN">
-                        <label>ISBN:</label>
-                        <input name="isbn" class="easyui-validatebox" required="true">
-                    </div>
 
-                    <div class="fitem" id="inputBookname">
-                        <label>Bookname:</label>
-                        <input name="bookName" class="easyui-validatebox" required="true" >
-                    </div>
-
-                    <div class="fitem" id="inputBookauthor">
-                        <label>Author:</label>
-                        <input name="authors" class="easyui-validatebox" required="true" >
-                    </div>
-
-                    <div class="fitem">
-                        <label>Catagory:</label>
-                        <input name="bookCatagory" class="easyui-validatebox" validType="catagory" required="true">
+                    <div class="fitem" id="inputUser">
+                        <label>Username:</label>
+                        <input name="username" class="easyui-validatebox" required="true" >
                     </div>
                     <div class="fitem">
-                        <label>Price:</label>
-                        <input type="text" name="bookPrice" id=""/>
+                        <label>Password:</label>
+                        <input type="password" name="password" required="true" >
+                    </div>
+                    <div class="fitem">
+                        <label>Email:</label>
+                        <input name="email" class="easyui-validatebox" validType="email" required="true">
+                    </div>
+                    <div class="fitem">
+                        <label>Birthday:</label>
+                        <input name="birthday" class="easyui-validatebox" validType="date">
                     </div>
                 </form>
             </div>
             <div id="dlg-buttons">
-                <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveBook()">Save</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
             </div>
-
         </div>
-
     </div>
-
 </div>
-
-
 </body>
 </html>

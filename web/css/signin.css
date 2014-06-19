@@ -38,3 +38,12 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+    width: auto;
+    margin: 0 auto;
+
+}

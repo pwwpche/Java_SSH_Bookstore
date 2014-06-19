@@ -131,19 +131,19 @@
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
     </div>
+    <h2 class="panel-heading">User Management</h2>
     <div class="row">
-        <div class="col-lg-3"></div>
-        <div class="col-lg-6">
-            <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
+        <div class="col-lg-6" style="margin: 0 auto">
+            <table id="dg" title="User Management" class="easyui-datagrid" style="width:1000px ;height:auto"
                    url="/GetAllCustomerInfo.action"
                    toolbar="#toolbar" pagination="true"
                    rownumbers="true" fitColumns="true" singleSelect="true" method="GET">
                 <thead>
                 <tr>
-                    <th field="username" width="50">Username</th>
-                    <th field="password" width="50">Password</th>
-                    <th field="email" width="50">Email</th>
-                    <th field="birthday" width="50">Birthday</th>
+                    <th field="username" width="200">Username</th>
+                    <th field="password" width="200">Password</th>
+                    <th field="email" width="200">Email</th>
+                    <th field="birthday" width="200">Birthday</th>
                 </tr>
                 </thead>
             </table>
