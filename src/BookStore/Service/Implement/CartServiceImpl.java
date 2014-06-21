@@ -3,6 +3,7 @@ package BookStore.Service.Implement;
 import BookStore.Dao.Interface.BookDao;
 import BookStore.Dao.Interface.CartDao;
 import BookStore.Dao.Wrapper.BookEntityWrapper;
+import BookStore.Dao.Wrapper.CartBookWrapper;
 import BookStore.Entity.BookEntity;
 import BookStore.Entity.CartEntity;
 import BookStore.Entity.CartbookEntity;
@@ -42,8 +43,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public String buy(String username, List<String> bookIsbn, List<Integer> quantity) {
-        return cartDao.buy(username, bookIsbn, quantity);
+    public String saveCartToDb(String username, List<String> bookIsbn, List<Integer> quantity) {
+        return cartDao.saveCartToDb(username, bookIsbn, quantity);
     }
 
 
@@ -58,15 +59,18 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<BookEntityWrapper> getCartBooksByUsername(String username) {
+    public List<CartBookWrapper> getCartBooksByUsername(String username) {
         CartEntity cartEntity = cartDao.getCartByUsername(username);
         List<CartbookEntity> cartbookEntities = new ArrayList<CartbookEntity>();
-        List<String> isbnList = new ArrayList<String>();
         cartbookEntities.addAll(cartEntity.getCartbooksByCid());
+        List<CartBookWrapper> wrappers = new ArrayList<CartBookWrapper>();
         for (CartbookEntity cartbookEntity : cartbookEntities) {
-            isbnList.add(cartbookEntity.getIsbn());
+            CartBookWrapper wrapper = new CartBookWrapper();
+            BookEntity bookEntity = bookDao.getBookEntityByIsbn(cartbookEntity.getIsbn());
+            wrapper.generateFromBookWrapper(bookEntity, cartbookEntity);
+            wrappers.add(wrapper);
         }
-        return bookDao.getBooksByIsbnList(isbnList);
+        return  wrappers;
     }
 
 

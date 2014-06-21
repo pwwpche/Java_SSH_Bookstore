@@ -1,4 +1,4 @@
-
+<%@ page import="BookStore.Action.ShoppingActions.ShoppingAction" %>
 <%--
   Created by IntelliJ IDEA.
   User: pwwpche
@@ -14,34 +14,10 @@
     String username = session.getAttribute("username") != null ? (String)session.getAttribute("username") : "";
     String welcomeTitle = (username.equals("")) ? "<a href=\"index.jsp\">Login</a>" :  "<a href=\"index.jsp\">Sign out</a>";
     String cartInfo = session.getAttribute("cartContent") == null ? "{\"total\":0,\"rows\":[]}" : (String)session.getAttribute("cartContent");
-            /*
-    if(CookieManager.getSessionIdByNameInCookie(request, "cart") == null)
+    if(cartInfo.equals(""))
     {
-        //Create Cookie to store current session of this user
-        CookieManager.addCookie(response, "cart", session_id, 1000000);
+        cartInfo = "{\"total\":0,\"rows\":[]}";
     }
-    else if (CookieManager.getSessionIdByNameInCookie(request, "cart").equals(
-            CookieManager.getSessionIdByNameInCookie(request, "JSESSIONID")))
-    {
-        //If session found, then return content of Cart stored in the session
-        cartInfo =(String) SessionListener.getSessionById(CookieManager.getSessionIdByNameInCookie(request, "cart")).getAttribute("cartContent");
-        if(cartInfo == null || cartInfo.equals("null")){
-            cartInfo = "{\"total\":0,\"rows\":[]}";
-        }
-        System.out.println("cartInfo get");
-        System.out.println(cartInfo);
-    }
-    else
-    {
-        //If SessionID has been changed, then reset it to current sessionId
-        //And cart content will not be loaded..
-
-        System.out.println("request.getRequestedSessionId()=" + request.getRequestedSessionId());
-        System.out.println("CookieManager.getSessionIdByNameInCookie(request, \"cart\")=" + CookieManager.getSessionIdByNameInCookie(request, "cart"));
-        System.out.println("CookieManager.getSessionIdByNameInCookie(request, \"JSESSIONID\")=" + CookieManager.getSessionIdByNameInCookie(request, "JSESSIONID"));
-        CookieManager.setCookie(request,"cart", request.getRequestedSessionId(), response);
-    }
-    */
 
 %>
 
@@ -60,7 +36,7 @@
 <script type="text/javascript" src="script/easyui-lang-en.js"></script>
 
 
-    <title>User Interface</title>
+    <title>Book Store</title>
 
     <script>
 
@@ -149,6 +125,7 @@
             if (selected){
                 addProduct(index, selected.isbn, selected.bookName, parseFloat(selected.bookPrice) );
             }
+            saveCartToSession();
         }
 
         function removeCartSelected(index)
@@ -234,7 +211,7 @@
         function upload(){
             if(username == ""){
                 alert("Please login first!");
-                saveCartToSession();
+                saveCartToDB();
                 window.location.href = "index.jsp";
             }
             $.ajax({
@@ -247,6 +224,8 @@
                 success: function(data){
                     alert("Success!");
                     $('#cartcontent').datagrid('loadData', emptyData);
+                    totalCost = 0;
+                    $('div.cart .total').html('Total: '+totalCost);
                 },
                 error: function(data){
                     alert("upload failed\n" + data.msg);
@@ -254,6 +233,22 @@
             });
         }
 
+        function saveCartToDB(){
+            $.ajax({
+                url: "<s:url action="saveCartToDB"/>",
+                type: "post",
+                dataType: "json",
+                data:{
+                    rowData: JSON.stringify($('#cartcontent').datagrid('getData'))
+                },
+                success: function(data){
+                    alert("Cart Saved");
+                },
+                error: function(data){
+                    alert("Cart saving failed");
+                }
+            });
+        }
         function saveCartToSession(){
             $.ajax({
                 url: "<s:url action="saveCartToSession"/>",
@@ -263,7 +258,7 @@
                     cartContent: JSON.stringify($('#cartcontent').datagrid('getData'))
                 },
                 success: function(data){
-                    alert("Cart Saved");
+                    console.log("Cart Saved");
                 },
                 error: function(data){
                     alert("Cart saving failed");
@@ -316,7 +311,7 @@
                     </thead>
                 </table>
                 <p class="total">Total: $0</p>
-                <button onclick="saveCartToSession()">Save My Cart</button>
+                <button onclick="saveCartToDB()">Save My Cart</button>
                 <button onclick="upload()">Buy</button>
             </div>
         </div>

@@ -100,7 +100,11 @@
                 <param name="root">dataMap</param>
             </result>
         </action>
-
+        <action name="saveCartToDB" class="BookStore.Action.ShoppingActions.ShoppingAction" method="saveCartToDB" >
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
         <action name="getAllStatisticsItems" class="BookStore.Action.StatisticActions.StatisticAction" method="getAllStatisticsItems" >
             <result type="json">
                 <param name="root">dataMap</param>

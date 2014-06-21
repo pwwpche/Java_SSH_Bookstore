@@ -1,6 +1,7 @@
 package BookStore.Action.ShoppingActions;
 
 import BookStore.Dao.Wrapper.BookEntityWrapper;
+import BookStore.Dao.Wrapper.CartBookWrapper;
 import BookStore.Service.Interface.CartService;
 import BookStore.Service.Interface.OrderService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -13,7 +14,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +74,19 @@ public class ShoppingAction extends ActionSupport implements ServletRequestAware
         return "success";
     }
 
+    public String getCartContentFromDB(){
+        dataMap.clear();
+        HttpSession session = request.getSession();
+        String username = (String)session.getAttribute("username");
+        if(username != null)
+        {
+            List<CartBookWrapper> wrapperList = cartService.getCartBooksByUsername(username);
+            dataMap.put("total", wrapperList.size());
+            dataMap.put("rows", wrapperList);
+        }
+        return "success";
+    }
+
     public String buy(){
         dataMap.clear();
         HttpSession session = request.getSession();
@@ -92,10 +105,11 @@ public class ShoppingAction extends ActionSupport implements ServletRequestAware
                 isbnList.add(isbn);
                 quantityList.add(quantity);
             }
-            //cartService.buy(username, isbnList, quantityList);
+            //cartService.saveCartToDb(username, isbnList, quantityList);
             orderService.createOrder(username,isbnList, quantityList);
+            //Empty cart content by clearing session
             session.setAttribute("cartContent","");
-            //cartService.removeAll(username);
+            cartService.removeAll(username);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -107,6 +121,35 @@ public class ShoppingAction extends ActionSupport implements ServletRequestAware
         String cartContent = request.getParameter("cartContent");
         HttpSession session = request.getSession();
         session.setAttribute("cartContent", cartContent);
+        return "success";
+    }
+
+    public String saveCartToDB(){
+        dataMap.clear();
+        HttpSession session = request.getSession();
+        String username = (String)session.getAttribute("username");
+        String rowData = request.getParameter("rowData");
+        try {
+            JSONObject row = new JSONObject(rowData);
+            JSONArray array = row.getJSONArray("rows");
+            int size = row.getInt("total");
+            List<String> isbnList = new ArrayList<String>();
+            List<Integer> quantityList = new ArrayList<Integer>();
+            for(int i = 0 ; i < size ; i++)
+            {
+                String isbn = ((JSONObject)array.get(i)).getString("isbn");
+                Integer quantity = ((JSONObject)array.get(i)).getInt("quantity");
+                isbnList.add(isbn);
+                quantityList.add(quantity);
+            }
+            cartService.saveCartToDb(username, isbnList, quantityList);
+            //orderService.createOrder(username,isbnList, quantityList);
+            //Empty cart content by clearing session
+            //session.setAttribute("cartContent","");
+            //cartService.removeAll(username);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
         return "success";
     }
 }

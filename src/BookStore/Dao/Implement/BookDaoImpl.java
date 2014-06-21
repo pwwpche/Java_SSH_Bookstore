@@ -146,6 +146,14 @@ public class BookDaoImpl extends SuperDao implements BookDao  {
     }
 
     @Override
+    public BookEntity getBookEntityByIsbn(String isbn) {
+        Session session = sessionFactory.openSession();
+        BookEntity bookEntity = (BookEntity)session.get(BookEntity.class, isbn);
+        session.close();
+        return bookEntity;
+    }
+
+    @Override
     public String removeBookByISBN(String ISBN) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

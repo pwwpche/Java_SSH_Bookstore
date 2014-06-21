@@ -15,6 +15,6 @@ public interface CartDao {
     public String updateInCart(String username, BookEntity bookEntity, int quantity);
     public String removeFromCart(String username, String ISBN);
     public String removeAll(String username);
-    public String buy(String username, List<String> isbnList, List<Integer> quantity);
+    public String saveCartToDb(String username, List<String> isbnList, List<Integer> quantity);
     public CartEntity getCartByUsername(String username);
 }

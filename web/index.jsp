@@ -41,7 +41,7 @@
                 <h2 class="form-signin-heading">Book Store</h2>
                 Username<s:textfield type="text" cssClass="form-control" placeholder="Username" name="username" label="Name?" />
                 Password<s:password  type="password" cssClass="form-control" placeholder="Password" name="password"  />
-                <s:submit cssClass="btn btn-lg btn-primary btn-block" type="submit" value="submit"/>
+                <s:submit cssClass="btn btn-lg btn-primary btn-block" type="submit" value="Login"/>
             </s:form>
             <s:if test="!validate(username, password) && username.length() > 0">
                 <script>

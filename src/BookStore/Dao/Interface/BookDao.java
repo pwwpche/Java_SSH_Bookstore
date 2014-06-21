@@ -16,6 +16,7 @@ public interface BookDao {
     public List<BookEntityWrapper> getBooksByIsbnList(List<String> list);
     public BookEntityWrapper getBookByName(String bookName);
     public BookEntityWrapper createFromBookEntity(BookEntity bookEntity);
+    public BookEntity getBookEntityByIsbn(String isbn);
     public String removeBookByISBN(String bookName);
     public String removeBookByName(String bookName);
     public BookEntity wrapperToBookEntity(BookEntityWrapper wrapper);

@@ -30,7 +30,6 @@ public class CartDaoImpl  extends SuperDao implements CartDao{
 
             //Create new Cart-Book association
             CartbookEntity cartbookEntity = new CartbookEntity();
-            cartbookEntity.setBookByIsbn(bookEntity);
             cartbookEntity.setCid(cartEntity.getCid());
             cartbookEntity.setQuantity(quantity);
             cartbookEntity.setIsbn(bookEntity.getIsbn());
@@ -96,45 +95,53 @@ public class CartDaoImpl  extends SuperDao implements CartDao{
     @Override
     public String removeAll(String username) {
         CartEntity cartEntity = getCartByUsername(username);
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
         if(cartEntity != null){
 
             //Get Cart Contents
-            Session session = sessionFactory.openSession();
             int size = cartEntity.getCartbooksByCid().size();
             List<CartbookEntity> cartbookEntities = new ArrayList<CartbookEntity>();
             cartbookEntities.addAll(cartEntity.getCartbooksByCid());
             for (int i = 0; i < size; i++) {
-                CartbookEntityPK pk = new CartbookEntityPK();
-                pk.setCid(cartbookEntities.get(i).getCid());
-                pk.setIsbn(cartbookEntities.get(i).getIsbn());
-                if(session.get(CartbookEntity.class,pk ) != null) {
-                   session.delete(cartbookEntities.get(i));
-                }
+                session.delete(cartbookEntities.get(i));
             }
             cartEntity.setCartbooksByCid(new HashSet<CartbookEntity>());
             session.saveOrUpdate(cartEntity);
+            transaction.commit();
+            session.close();
             return "success";
         }
         return "Error: Cart not exist.";
     }
 
     @Override
-    public String buy(String username, List<String> bookIsbn, List<Integer> quantity) {
+    public String saveCartToDb(String username, List<String> bookIsbn, List<Integer> quantity) {
         CartEntity cartEntity = getCartByUsername(username);
+        HashSet<CartbookEntity> cartbookEntities = new HashSet<CartbookEntity>();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
         if (cartEntity != null) {
             //Get Cart Contents
-            Session session = sessionFactory.openSession();
+            int i = 0 ;
             for (String aBookIsbn : bookIsbn) {
                 CartbookEntityPK pk = new CartbookEntityPK();
                 pk.setIsbn(aBookIsbn);
                 pk.setCid(cartEntity.getCid());
                 CartbookEntity cartbookEntity = (CartbookEntity) session.get(CartbookEntity.class, pk);
-                if (cartbookEntity != null) {
-                    session.save(cartbookEntity);
+                if (cartbookEntity == null) {
+                    cartbookEntity = new CartbookEntity();
+                    cartbookEntity.setIsbn(aBookIsbn);
+                    cartbookEntity.setCid(cartEntity.getCid());
                 }
+                cartbookEntity.setQuantity(quantity.get(i));
+                session.saveOrUpdate(cartbookEntity);
+                cartbookEntities.add(cartbookEntity);
+                i++;
             }
-            cartEntity.setCartbooksByCid(new HashSet<CartbookEntity>());
+            cartEntity.setCartbooksByCid(cartbookEntities);
             session.saveOrUpdate(cartEntity);
+            transaction.commit();
             session.close();
             return "success";
         }

@@ -10,8 +10,5 @@
             <key-property name="isbn" column="ISBN"/>
         </composite-id>
         <property name="quantity" column="quantity"/>
-        <many-to-one name="bookByIsbn" class="BookStore.Entity.BookEntity">
-            <column name="ISBN" not-null="true"/>
-        </many-to-one>
     </class>
 </hibernate-mapping>

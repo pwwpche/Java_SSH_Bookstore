@@ -8,7 +8,7 @@ public class OrderbookEntity {
     private String isbn;
     private Integer quantity;
     private Float price;
-    private BookEntity bookByIsbn;
+
 
     public int getOid() {
         return oid;

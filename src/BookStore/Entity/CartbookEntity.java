@@ -7,7 +7,6 @@ public class CartbookEntity {
     private int cid;
     private String isbn;
     private Integer quantity;
-    private BookEntity bookByIsbn;
 
     public int getCid() {
         return cid;
@@ -55,11 +54,4 @@ public class CartbookEntity {
         return result;
     }
 
-    public BookEntity getBookByIsbn() {
-        return bookByIsbn;
-    }
-
-    public void setBookByIsbn(BookEntity bookByIsbn) {
-        this.bookByIsbn = bookByIsbn;
-    }
 }
