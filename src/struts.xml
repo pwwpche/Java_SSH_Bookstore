@@ -90,6 +90,11 @@
                 <param name="root">dataMap.data</param>
             </result>
         </action>
+        <action name="getCartContentFromDB" class="BookStore.Action.ShoppingActions.ShoppingAction" method="getCartContentFromDB" >
+            <result type="json">
+                <param name="root">dataMap</param>
+            </result>
+        </action>
         <action name="buy" class="BookStore.Action.ShoppingActions.ShoppingAction" method="buy" >
             <result type="json">
                 <param name="root">dataMap</param>

@@ -44,6 +44,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public String saveCartToDb(String username, List<String> bookIsbn, List<Integer> quantity) {
+        cartDao.removeAll(username);
         return cartDao.saveCartToDb(username, bookIsbn, quantity);
     }
 

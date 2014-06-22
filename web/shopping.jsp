@@ -11,6 +11,15 @@
 <html>
 <head>
 <%
+    String getFromDB = "false";
+    if(session.getAttribute("reqFromDB") != null){
+        if(session.getAttribute("reqFromDB").equals("true")){
+            getFromDB = "true";
+            session.setAttribute("reqFromDB", "false");
+        }else{
+            getFromDB = "false";
+        }
+    }
     String username = session.getAttribute("username") != null ? (String)session.getAttribute("username") : "";
     String welcomeTitle = (username.equals("")) ? "<a href=\"index.jsp\">Login</a>" :  "<a href=\"index.jsp\">Sign out</a>";
     String cartInfo = session.getAttribute("cartContent") == null ? "{\"total\":0,\"rows\":[]}" : (String)session.getAttribute("cartContent");
@@ -42,6 +51,25 @@
 
     //Shopping Cart
     var cartData = <%=cartInfo%>;
+    //Cart is empty, try to load from DB
+    var getDB = <%=getFromDB%>;
+    if(getDB == true)
+    {
+        $.ajax({
+            url: "<s:url action="getCartContentFromDB"/>",
+            type: "post",
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                cartData = data;
+                $('#cartcontent').datagrid('loadData', cartData);
+
+            },
+            error: function(data){
+                console.log("DB reading failed\n" + data);
+            }
+        });
+    }
     var emptyData = {"total":0,"rows":[]};
     var username = "<%=username%>";
     var totalCost = 0;
@@ -73,7 +101,6 @@
                             }
                             totalCost = Math.round(totalCost*100)/100;
                             $('div.cart .total').html('Total: '+totalCost);
-                            console.log(cartData);
                             return '<button class="removeCart" onclick="removeCartSelected(' + index + ')">Remove</button>';
                         }
                     }

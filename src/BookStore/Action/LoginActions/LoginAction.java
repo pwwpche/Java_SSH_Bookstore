@@ -49,6 +49,7 @@ public class LoginAction extends ActionSupport implements ServletRequestAware{
         {
             //Username and password are correct, jump to shooping page.
             session.setAttribute("username", username);
+            session.setAttribute("reqFromDB", "true");
             if(!username.equals("admin")) {
                 session.setAttribute("role", "user");
                 return "user";
